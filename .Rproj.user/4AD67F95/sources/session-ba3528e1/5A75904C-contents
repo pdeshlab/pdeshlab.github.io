@@ -1,0 +1,98 @@
+---
+title: "research"
+---
+
+## Peer-Reviewed Articles
+
+<details>
+
+<summary>[Deshpande, Pia, Scott Blatte, Yonatan Margalit, Carolina Olea Lezama, Brian F. Schaffner, <br>Aadhya Shivakumar,and David Wingens (2024). Critical race theory and asymmetric mobilization.<br> *Political Behavior*, *46*(3), 1677-1699.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
+
+> Teaching Critical Race Theory (CRT) in schools quickly became a salient issue nationally and in local elections despite CRT’s origins as an academic theory. In this paper, we argue that elite asymmetries regarding the importance of CRT spillover to the electorate. We show that Republican legislators and conservative media’s use of the term “critical race theory” dwarfed that of Democratic legislators and liberal media, respectively. A spike in general interest in the term happened concurrently with this elite push. We then hypothesize that in part due to this asymmetry in exposure to the term “critical race theory” itself in elite messaging, CRT policy may have an asymmetric effect on political mobilization, favoring Republicans, who tend to oppose the teaching of CRT in schools. To test this hypothesis, we conduct a survey experiment and find that Republicans presented with a pro-CRT policy change are politically mobilized, while Democrats presented with an anti-CRT policy change are not. In particular, Republicans exposed to the pro-CRT policy reported a higher likelihood of voting, encouraging others to vote, and contacting their local politicians. Thus, the case of CRT helps to illustrate the conditions under which issues can asymmetrically mobilize citizens.
+
+<!-- Button to section syllabus to the right -->
+
+<button onclick="window.open(&#39;https://par.nsf.gov/servlets/purl/10516317&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">
+read paper</button>
+
+<!-- Replication Code Button -->
+
+<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/9QGIUH&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: black; color: yellow; border: 2px solid black; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;yellow&#39;; this.style.color=&#39;black&#39;;" onmouseout="this.style.backgroundColor=&#39;black&#39;; this.style.color=&#39;yellow&#39;;">replication code</button>
+
+<!-- BibTeX Citation with Background Color and Extra Space -->
+
+<p style="margin-top: 20px;">
+
+To cite this paper using BibTeX, use the following:
+
+</p>
+
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;">
+
+``` bibtex
+@article{deshpande2024critical,
+  title={Critical race theory and asymmetric mobilization},
+  author={Deshpande, Pia and Blatte, Scott and Margalit,
+  Yonatan and Lezama, Carolina Olea and Schaffner, 
+  Brian F and Shivakumar, Aadhya and Wingens, David},
+  journal={Political Behavior},
+  volume={46},
+  number={3},
+  pages={1677--1699},
+  year={2024},
+  publisher={Springer}
+}
+```
+</details>
+
+## Policy and Data Reports
+
+I do not include any of my writing as a journalist here (or my brief explainers for the MIT Election Lab — which you can handily read [here](https://electionlab.mit.edu/author/475)). You can find select publications listed in my `CV`. If you are searching for a specific article, rest assured that they are on the internet forever! I know it may be difficult to track some down though, so feel free to email me.
+
+<details>
+
+<summary>[Deshpande P, Cha J. [The 2020 CES: Duplicate Respondents and Handling Asian and Hispanic Subsamples](https://cces.gov.harvard.edu/publications/duplicate-respondents-asian-and-hispanic-subsamples).<br>The Cooperative Election Study; 2022.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
+
+> Pia Deshpande and Jeremiah Cha report that 25% of the 2020 CES sample took the 2018 CES. They report best practices for conducting analyses of ethnic subgroups and produce tables documenting counts for specific Hispanic (Mexican, Puerto Rican, South American, Spanish, and U.S.-identified Hispanics) and Asian (Indian, Chinese, Filipino, U.S.-identified Asians) subgroups. The report also compares the 2020 CES sample of Asians and Hispanics to the 2019 5-year American Community Survey and notes where samples differ.
+
+<button onclick="window.open(&#39;https://cces.gov.harvard.edu/sites/projects.iq.harvard.edu/files/cces/files/06_09_2022_duplicate_respondents_asian_and_hispanic_subsamples.pdf&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">
+
+read paper
+
+</button>
+
+</details>
+
+<details>
+
+<summary>[Deshpande, Pia. “Election Administration Challenges in Ohio.”<br>*Lawfare*, 30 Sept. 2020, <https://www.lawfaremedia.org/article/election-administration-challenges-ohio>.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
+
+<button onclick="window.open(&#39;https://www.lawfaremedia.org/article/election-administration-challenges-ohio&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">
+
+read paper
+
+</button>
+
+</details>
+
+<details>
+
+<summary>[Cao, Diana, et al. “Election Administration Challenges in Pennsylvania.”<br>*Lawfare*, 9 Oct. 2020, <https://www.lawfaremedia.org/article/election-administration-challenges-pennsylvania>.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
+
+<button onclick="window.open(&#39;https://www.lawfaremedia.org/article/election-administration-challenges-pennsylvania;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">
+
+read paper
+
+</button>
+
+</details>
+
+## Working Papers and Works in Progress
+
+<details>
+
+<summary>["Swipe to Learn More: Understanding How TikTok Affects Users’ Beliefs" with Aaron Pope]{style="font-size: 1.1em; color: purple; font-weight: normal; display: inline-block;"}</summary>
+
+> TikTok has evolved from a platform primarily for entertainment to a significant source of political content, with over half of U.S. TikTok users reporting that they use it as a news source. However, there is limited research on how TikTok use shapes individuals' political beliefs. In a randomized experiment, we examine the effects of a 3-week TikTok deactivation on users' perceptions of issue importance, political knowledge, and self-reported well-being. For a subset of participants, we also collect TikTok watch history data, which allows us to measure baseline levels of political content consumption on the platform. And for the control group, we are able to observe the content they are exposed to during the experiment period. We hypothesize that deactivating TikTok will lead users to view different political issues as more important, depending on which issues were more prominent on the app during the deactivation period.
+
+</details>

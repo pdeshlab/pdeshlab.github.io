@@ -1,0 +1,47 @@
+---
+title: "Research"
+---
+
+## Peer-Reviewed Articles
+
+<details>
+
+
+<summary>[Deshpande, Pia, et al. "Critical race theory and asymmetric mobilization."<br>*Political Behavior* 46.3 (2024): 1677-1699.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
+
+> Teaching Critical Race Theory (CRT) in schools quickly became a salient issue nationally and in local elections despite CRT’s origins as an academic theory. In this paper, we argue that elite asymmetries regarding the importance of CRT spillover to the electorate. We show that Republican legislators and conservative media’s use of the term “critical race theory” dwarfed that of Democratic legislators and liberal media, respectively. A spike in general interest in the term happened concurrently with this elite push. We then hypothesize that in part due to this asymmetry in exposure to the term “critical race theory” itself in elite messaging, CRT policy may have an asymmetric effect on political mobilization, favoring Republicans, who tend to oppose the teaching of CRT in schools. To test this hypothesis, we conduct a survey experiment and find that Republicans presented with a pro-CRT policy change are politically mobilized, while Democrats presented with an anti-CRT policy change are not. In particular, Republicans exposed to the pro-CRT policy reported a higher likelihood of voting, encouraging others to vote, and contacting their local politicians. Thus, the case of CRT helps to illustrate the conditions under which issues can asymmetrically mobilize citizens.
+
+<!-- Button to section syllabus to the right -->
+<button onclick="window.location.href='https://par.nsf.gov/servlets/purl/10516317';" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor='blue'; this.style.color='white';" onmouseout="this.style.backgroundColor='white'; this.style.color='blue';">
+  read paper
+</button>
+
+<!-- BibTeX Citation with Background Color and Extra Space -->
+<p style="margin-top: 20px;">To cite this paper using BibTeX, use the following:</p>
+
+<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;">
+  ```bibtex
+  @article{deshpande2024critical,
+    title={Critical race theory and asymmetric mobilization},
+    author={Deshpande, Pia and Blatte, Scott and Margalit,
+    Yonatan and Lezama, Carolina Olea and Schaffner, 
+    Brian F and Shivakumar, Aadhya and Wingens, David},
+    journal={Political Behavior},
+    volume={46},
+    number={3},
+    pages={1677--1699},
+    year={2024},
+    publisher={Springer}
+  }
+```
+
+
+## Working Papers and Works in Progress
+
+<details>
+
+<summary>["Swipe to Learn More: Understanding How TikTok Affects Users’ Beliefs" with Aaron Pope]{style="font-size: 1.1em; color: purple; font-weight: normal; display: inline-block;"}</summary>
+
+> TikTok has evolved from a platform primarily for entertainment to a significant source of political content, with over half of U.S. TikTok users reporting that they use it as a news source. However, there is limited research on how TikTok use shapes individuals' political beliefs. In a randomized experiment, we examine the effects of a 3-week TikTok deactivation on users' perceptions of issue importance, political knowledge, and self-reported well-being. For a subset of participants, we also collect TikTok watch history data, which allows us to measure baseline levels of political content consumption on the platform. And for the control group, we are able to observe the content they are exposed to during the experiment period. We hypothesize that deactivating TikTok will lead users to view different political issues as more important, depending on which issues were more prominent on the app during the deactivation period.
+
+</details>
