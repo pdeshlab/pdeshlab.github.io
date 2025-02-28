@@ -1,15 +1,26 @@
 ---
 title: "Pia Deshpande"
+image: profile.jpg
+about:
+  template: trestles
+  image-shape: rounded
+  image-width: 25em
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://x.com/deshpandepia
+    - icon: envelope-at-fill
+      text: email
+      href: mailto:pia_deshpande@berkeley.edu
+    - icon: github
+      text: github
+      href: https://github.com/pdeshlab
 ---
 
-![](profile.jpg){style="color: blue" fig-align="left" width="500"}
+Hi! I'm Pia Deshpande — a PhD Student in the [Travers Department of Political Science](https://polisci.berkeley.edu/) at UC Berkeley. I have a particular interest in `how social media shapes American politics`.
 
-Hi! I'm Pia Deshpande — a PhD Student in the [Travers Department of Political Science](https://polisci.berkeley.edu/) at UC Berkeley. I have a particular interest in how social media shapes American politics.
+Prior to starting at Berkeley, I was a pre-doctoral researcher at the Cooperative Election Study (CES) and a research assistant at the MIT Election Lab. I also worked as a data journalist for the Associated Press during the 2020 election, and interned at CNN International in Hong Kong and POLITICO in D.C. In May of 2020, I earned a B.A. in Political Science from Columbia University. Though I am not a journalist anymore, I continue to write for non-academic venues as a researcher. Currently, I have work in *Monkey Cage* and *Lawfare.*
 
-Prior to Berkeley, I was a pre-doctoral researcher at the Cooperative Election Study and a research assistant at the MIT Election Lab. I also worked as a data journalist for the Associated Press during the 2020 election, and interned at CNN Hong Kong and POLITICO. I hold a BA in Political Science from Columbia University.
+When I was at the CES, I wrote tutorials for my students on how to use R. I wrote these tutorials before I even began graduate school, so I take only tenuous responsibility for the prose they contain. My sheepishness aside, I have heard from others that they have been helpful teaching tools, so I wanted to put them up. You can find them under `Tutorials` .
 
-You can contact me at `pia_deshpande@berkeley.edu`.
-
-```{r}
-
-```
+You can contact me at `pia_deshpande[at]berkeley[dot]edu`.

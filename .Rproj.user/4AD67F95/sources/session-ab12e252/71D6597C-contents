@@ -20,8 +20,6 @@ website:
       - icon: github
         href: https://github.com/pdeshlab
     contents:
-      - text: "about"
-        href: about.qmd
       - text: "research"
         href: research.qmd
       - text: "teaching"
