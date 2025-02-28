@@ -1,0 +1,15 @@
+{
+  "hash": "34ba52df83bf011c957ad0753aa6e6b2",
+  "result": {
+    "engine": "knitr",
+    "markdown": "---\ntitle: \"Pia Deshpande\"\n---\n\n\n![](profile.jpg){style=\"color: blue\" fig-align=\"left\" width=\"500\"}\n\nHi! I'm Pia Deshpande — a PhD Student in the [Travers Department of Political Science](https://polisci.berkeley.edu/) at UC Berkeley. I have a particular interest in how social media shapes American politics.\n\nPrior to Berkeley, I was a pre-doctoral researcher at the Cooperative Election Study and a research assistant at the MIT Election Lab. I also worked as a data journalist for the Associated Press during the 2020 election, and interned at CNN Hong Kong and POLITICO. I hold a BA in Political Science from Columbia University.\n\nYou can contact me at `pia_deshpande@berkeley.edu`.\n\n\n::: {.cell}\n\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}
