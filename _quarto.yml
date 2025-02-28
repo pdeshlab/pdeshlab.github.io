@@ -3,6 +3,8 @@ project:
   output-dir: docs
 
 website:
+  open-graph: true
+  favicon: profile.jpg
   title: ""
   twitter-card: 
     site: "@DeshpandePia"
