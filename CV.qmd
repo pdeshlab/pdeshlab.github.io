@@ -1,5 +1,5 @@
 ---
-title: "CV"
+title: "cv"
 ---
 
 If you are having a hard time viewing my CV, you can download it  <a href="Pia_Deshpande_CV_website.pdf" target="_blank">here</a>.

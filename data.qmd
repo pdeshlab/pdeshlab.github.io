@@ -1,5 +1,5 @@
 ---
-title: "Data"
+title: "data"
 ---
 
 This page does not include replication data for specific papers. For these data, please go to `Research`. If you click on a paper of interest, you'll find a button that will direct you to the replication data.
@@ -12,7 +12,10 @@ This page does not include replication data for specific papers. For these data,
 
 <!-- Replication Code Button -->
 
-<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/RLO7G9&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">see data
+<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/RLO7G9&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">
+
+see data
+
 </button>
 
 <!-- BibTeX Citation with Background Color and Extra Space -->
@@ -23,8 +26,7 @@ To cite this data using BibTeX, use the following:
 
 </p>
 
-<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;">
-
+::: {style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;"}
 ``` bibtex
 @data{DVN/RLO7G9_2022,
 author = {Deshpande, Pia and Hartnett, Brendan and Schaffner, Brian and Ansolabehere, Steve},
@@ -36,7 +38,8 @@ doi = {10.7910/DVN/RLO7G9},
 url = {https://doi.org/10.7910/DVN/RLO7G9}
 }
 ```
-</div>
+:::
+
 </details>
 
 <hr>
@@ -50,7 +53,10 @@ url = {https://doi.org/10.7910/DVN/RLO7G9}
 <!-- Replication Code Button -->
 
 <button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/JUX8KA&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">
-see data</button>
+
+see data
+
+</button>
 
 <!-- BibTeX Citation with Background Color and Extra Space -->
 
@@ -60,8 +66,7 @@ To cite this data using BibTeX, use the following:
 
 </p>
 
-<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;">
-
+::: {style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;"}
 ``` bibtex
 @data{DVN/JUX8KA_2021,
 author = {Deshpande, Pia and Hershewe, Thomas},
@@ -73,9 +78,12 @@ doi = {10.7910/DVN/JUX8KA},
 url = {https://doi.org/10.7910/DVN/JUX8KA}
 }
 ```
-</div>
+:::
+
 </details>
+
 <hr>
+
 <details>
 
 <summary>[Deshpande, Pia, 2022,<br>"CCES 2020 Supplemental Data", <https://doi.org/10.7910/DVN/6NV9G3>, Harvard Dataverse, V1]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
@@ -84,7 +92,11 @@ url = {https://doi.org/10.7910/DVN/JUX8KA}
 
 <!-- Replication Code Button -->
 
-<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6NV9G3&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">see data </button>
+<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6NV9G3&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">
+
+see data
+
+</button>
 
 <!-- BibTeX Citation with Background Color and Extra Space -->
 
@@ -94,8 +106,7 @@ To cite this data using BibTeX, use the following:
 
 </p>
 
-<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;">
-
+::: {style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;"}
 ``` bibtex
 @data{DVN/6NV9G3_2022,
 author = {Deshpande, Pia},
@@ -108,9 +119,10 @@ doi = {10.7910/DVN/6NV9G3},
 url = {https://doi.org/10.7910/DVN/6NV9G3}
 }
 ```
-</div>
+:::
 
 </details>
+
 <hr>
 
 <details>
@@ -121,7 +133,11 @@ url = {https://doi.org/10.7910/DVN/6NV9G3}
 
 <!-- Replication Code Button -->
 
-<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IA9SND&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">see data </button>
+<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IA9SND&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">
+
+see data
+
+</button>
 
 <!-- BibTeX Citation with Background Color and Extra Space -->
 
@@ -131,8 +147,7 @@ To cite this data using BibTeX, use the following:
 
 </p>
 
-<div style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;">
-
+::: {style="background-color: #f0f0f0; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace; overflow-x: auto;"}
 ``` bibtex
 data{DVN/IA9SND_2022,
 author = {Deshpande, Pia},
@@ -145,5 +160,6 @@ doi = {10.7910/DVN/IA9SND},
 url = {https://doi.org/10.7910/DVN/IA9SND}
 }
 ```
-</div>
+:::
+
 </details>

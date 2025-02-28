@@ -1,5 +1,5 @@
 ---
-title: "Teaching"
+title: "teaching"
 callout: default
 callout-icon: false
 ---
@@ -26,7 +26,11 @@ callout-icon: false
 
 <!-- Button to section syllabus to the right -->
 
-<button onclick="window.open(&#39;https://docs.google.com/document/d/1GgNjIdAqTWjFTJsYyFbRJ8VQVp3h6vWLLM-B1lB-XXE/edit?usp=sharing&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 4px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">see section syllabus</button>
+<button onclick="window.open(&#39;https://docs.google.com/document/d/1GgNjIdAqTWjFTJsYyFbRJ8VQVp3h6vWLLM-B1lB-XXE/edit?usp=sharing&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 4px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">
+
+see section syllabus
+
+</button>
 
 </details>
 
