@@ -412,7 +412,7 @@ Functions should make your code easier to write, read, and understand. If you wr
 
 ## An example: let’s consolidate our line chart code
 
-We will be adapting code from my first tutorial, *Plotting trends over time with the CES*. Make sure you have the code from this tutorial at the ready (the entire script can be found at the bottom of that tutorial page).
+We will be adapting code from my first tutorial, [Plotting trends over time with the CES](https://pdeshlab.github.io/tutorial2.html). Make sure you have the code from this tutorial at the ready (the entire script can be found at the bottom of that tutorial page).
 
 If you look at the code from the tutorial in question, we repeat a lot of the same analysis on different subsets of data. For example, we use the survey package to analyze Democrats and Republicans’ attendance of political meetings, party donations, and putting up campaign signs. See this redundant code below:
 

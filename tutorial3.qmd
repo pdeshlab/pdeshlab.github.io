@@ -16,7 +16,7 @@ code-block-border-left: true
 
 What won’t you learn? There is a lot that goes into maps: projection types (see Dan Kelley’s excellent [writeup](https://cran.r-project.org/web/packages/oce/vignettes/map_projections.html) on the subject), zip code fuzziness, and loading in shapefiles from the Census, just to name a few topics. Cartographers are beings of infinite knowledge and power, and I won’t be able to teach you all of their secrets (I don’t know most of them!). But don’t let that dissuade you! If you’re passionate about maps, this will be a good place for you to start. And if you just need to plot a state-level election outcome map for a class and are panicking, perhaps this tutorial will help you too.
 
-We’ll also be using the `dataverse` and `survey` packages in this tutorial. I will not explain them in detail here. I have discussed them (and provided additional resources) in my last post: [*Plotting trends over time with the CES*](https://pdeshlab.github.io/posts/CES-plots-over-time).
+We’ll also be using the `dataverse` and `survey` packages in this tutorial. I will not explain them in detail here. I have discussed them (and provided additional resources) in my last post: [*Plotting trends over time with the CES*](https://pdeshlab.github.io/tutorial2.html).
 
 Much of this tutorial uses code that is adapted from an [article](https://www.cgoodman.com/blog/archives/2018/06/16/maps-in-r-using-urbnmapr/) by Christopher Goodman and the Urban Institute’s very own [tutorial](https://urbaninstitute.github.io/r-at-urban/mapping.html#Introduction). When I do this adapting, I note it in-text, but I wanted to give credit up-top too. Thank you for these incredible resources!
 
