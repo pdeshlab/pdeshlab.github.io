@@ -62,7 +62,7 @@ I do not include any of my writing as a journalist here (or my brief explainers 
 
 <details>
 
-<summary>[Deshpande, Pia. “Election Administration Challenges in Ohio.”<br>*Lawfare*, 30 Sept. 2020.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
+<summary>[Deshpande, Pia. “Election Administration Challenges in Ohio.” *Lawfare*, 30 Sept. 2020.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
 
 <button onclick="window.open(&#39;https://www.lawfaremedia.org/article/election-administration-challenges-ohio&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">read paper</button>
 
