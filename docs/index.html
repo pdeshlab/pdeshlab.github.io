@@ -33,7 +33,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -103,12 +102,6 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./about.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">about</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="./research.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">research</span></a>
   </div>
@@ -167,39 +160,42 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     
 <!-- main -->
-<main class="content" id="quarto-document-content">
-
+<div class="quarto-about-trestles">
+  <div class="about-entity">
+    <img src="profile.jpg" class="about-image
+  rounded " style="width: 25em;">
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">Pia Deshpande</h1>
 </div>
-
-
-
 <div class="quarto-title-meta">
-
-    
-  
-    
   </div>
-  
-
-
 </header>
-
-
-<div class="quarto-figure quarto-figure-left">
-<figure class="figure">
-<p><img src="profile.jpg" class="img-fluid quarto-figure quarto-figure-left figure-img" style="color: blue" width="500"></p>
-</figure>
+    <div class="about-links">
+  <a href="https://x.com/deshpandepia" class="about-link" rel="" target="">
+    <i class="bi bi-twitter"></i>
+     <span class="about-link-text">twitter</span>
+  </a>
+  <a href="mailto:pia_deshpande@berkeley.edu" class="about-link" rel="" target="">
+    <i class="bi bi-envelope-at-fill"></i>
+     <span class="about-link-text">email</span>
+  </a>
+  <a href="https://github.com/pdeshlab" class="about-link" rel="" target="">
+    <i class="bi bi-github"></i>
+     <span class="about-link-text">github</span>
+  </a>
 </div>
-<p>Hi! I’m Pia Deshpande — a PhD Student in the <a href="https://polisci.berkeley.edu/">Travers Department of Political Science</a> at UC Berkeley. I have a particular interest in how social media shapes American politics.</p>
-<p>Prior to Berkeley, I was a pre-doctoral researcher at the Cooperative Election Study and a research assistant at the MIT Election Lab. I also worked as a data journalist for the Associated Press during the 2020 election, and interned at CNN Hong Kong and POLITICO. I hold a BA in Political Science from Columbia University.</p>
-<p>You can contact me at <code>pia_deshpande@berkeley.edu</code>.</p>
+  </div>
+  <div class="about-contents"><main class="content" id="quarto-document-content">
+<p>Hi! I’m Pia Deshpande — a PhD Student in the <a href="https://polisci.berkeley.edu/">Travers Department of Political Science</a> at UC Berkeley. I have a particular interest in <code>how social media shapes American politics</code>.</p>
+<p>Prior to starting at Berkeley, I was a pre-doctoral researcher at the Cooperative Election Study (CES) and a research assistant at the MIT Election Lab. I also worked as a data journalist for the Associated Press during the 2020 election, and interned at CNN International in Hong Kong and POLITICO in D.C. In May of 2020, I earned a B.A. in Political Science from Columbia University. Though I am not a journalist anymore, I continue to write for non-academic venues as a researcher. Currently, I have work in <em>Monkey Cage</em> and <em>Lawfare.</em></p>
+<p>When I was at the CES, I wrote tutorials for my students on how to use R. I wrote these tutorials before I even began graduate school, so I take only tenuous responsibility for the prose they contain. My sheepishness aside, I have heard from others that they have been helpful teaching tools, so I wanted to put them up. You can find them under <code>Tutorials</code> .</p>
+<p>You can contact me at <code>pia_deshpande[at]berkeley[dot]edu</code>.</p>
 
 
-
-</main> <!-- /main -->
+</main></div>
+</div>
+ <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -220,13 +216,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
-  const icon = "";
-  const anchorJS = new window.AnchorJS();
-  anchorJS.options = {
-    placement: 'right',
-    icon: icon
-  };
-  anchorJS.add('.anchored');
   const isCodeAnnotation = (el) => {
     for (const clz of el.classList) {
       if (clz.startsWith('code-annotation-')) {                     

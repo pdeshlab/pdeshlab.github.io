@@ -12,8 +12,7 @@ title: "research"
 
 <!-- Button to section syllabus to the right -->
 
-<button onclick="window.open(&#39;https://par.nsf.gov/servlets/purl/10516317&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">
-read paper</button>
+<button onclick="window.open(&#39;https://par.nsf.gov/servlets/purl/10516317&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">read paper</button>
 
 <!-- Replication Code Button -->
 
@@ -43,11 +42,12 @@ To cite this paper using BibTeX, use the following:
   publisher={Springer}
 }
 ```
+
 </details>
 
 ## Policy and Data Reports
 
-I do not include any of my writing as a journalist here (or my brief explainers for the MIT Election Lab — which you can handily read [here](https://electionlab.mit.edu/author/475)). You can find select publications listed in my `CV`. If you are searching for a specific article, rest assured that they are on the internet forever! I know it may be difficult to track some down though, so feel free to email me.
+I do not include any of my writing as a journalist here (or my brief explainers for the MIT Election Lab — which you can handily read [here](https://electionlab.mit.edu/author/475)). You can find select publications listed in my `cv`. If you are searching for a specific article, rest assured that they are on the internet forever! I know it may be difficult to track some down though, so feel free to email me.
 
 <details>
 
@@ -55,11 +55,7 @@ I do not include any of my writing as a journalist here (or my brief explainers 
 
 > Pia Deshpande and Jeremiah Cha report that 25% of the 2020 CES sample took the 2018 CES. They report best practices for conducting analyses of ethnic subgroups and produce tables documenting counts for specific Hispanic (Mexican, Puerto Rican, South American, Spanish, and U.S.-identified Hispanics) and Asian (Indian, Chinese, Filipino, U.S.-identified Asians) subgroups. The report also compares the 2020 CES sample of Asians and Hispanics to the 2019 5-year American Community Survey and notes where samples differ.
 
-<button onclick="window.open(&#39;https://cces.gov.harvard.edu/sites/projects.iq.harvard.edu/files/cces/files/06_09_2022_duplicate_respondents_asian_and_hispanic_subsamples.pdf&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">
-
-read paper
-
-</button>
+<button onclick="window.open(&#39;https://cces.gov.harvard.edu/sites/projects.iq.harvard.edu/files/cces/files/06_09_2022_duplicate_respondents_asian_and_hispanic_subsamples.pdf&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">read paper</button>
 
 </details>
 
@@ -79,11 +75,7 @@ read paper
 
 <summary>[Cao, Diana, et al. “Election Administration Challenges in Pennsylvania.”<br>*Lawfare*, 9 Oct. 2020, <https://www.lawfaremedia.org/article/election-administration-challenges-pennsylvania>.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
 
-<button onclick="window.open(&#39;https://www.lawfaremedia.org/article/election-administration-challenges-pennsylvania;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">
-
-read paper
-
-</button>
+<button onclick="window.open(&#39;https://www.lawfaremedia.org/article/election-administration-challenges-pennsylvania;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: blue; border: 2px solid blue; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;blue&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;blue&#39;;">read paper</button>
 
 </details>
 

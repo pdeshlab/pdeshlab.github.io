@@ -21,6 +21,6 @@ Hi! I'm Pia Deshpande — a PhD Student in the [Travers Department of Political 
 
 Prior to starting at Berkeley, I was a pre-doctoral researcher at the Cooperative Election Study (CES) and a research assistant at the MIT Election Lab. I also worked as a data journalist for the Associated Press during the 2020 election, and interned at CNN International in Hong Kong and POLITICO in D.C. In May of 2020, I earned a B.A. in Political Science from Columbia University. Though I am not a journalist anymore, I continue to write for non-academic venues as a researcher. Currently, I have work in *Monkey Cage* and *Lawfare.*
 
-When I was at the CES, I wrote tutorials for my students on how to use R. I wrote these tutorials before I even began graduate school, so I take only tenuous responsibility for the prose they contain. My sheepishness aside, I have heard from others that they have been helpful teaching tools, so I wanted to put them up. You can find them under `Tutorials` .
+When I was at the CES, I wrote tutorials for my students on how to use R. I wrote these tutorials before I even began graduate school, so I take only tenuous responsibility for the prose they contain. My sheepishness aside, I have heard from others that they have been helpful teaching tools, so I wanted to put them up. You can find them under `tutorials` .
 
 You can contact me at `pia_deshpande[at]berkeley[dot]edu`.
