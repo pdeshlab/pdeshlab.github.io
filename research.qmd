@@ -52,7 +52,7 @@ I do not include any of my writing as a journalist here (or my brief explainers 
 
 <details>
 
-<summary>[Deshpande P, Cha J.The 2020 CES: Duplicate Respondents and Handling Asian and Hispanic Subsamples.<br>The Cooperative Election Study; 2022.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
+<summary>[Deshpande P, Cha J. The 2020 CES: Duplicate Respondents and Handling Asian and Hispanic Subsamples.<br>The Cooperative Election Study; 2022.]{style="font-size: 1.1em; color: purple; font-weight: normal; display:inline-block"}</summary>
 
 > Pia Deshpande and Jeremiah Cha report that 25% of the 2020 CES sample took the 2018 CES. They report best practices for conducting analyses of ethnic subgroups and produce tables documenting counts for specific Hispanic (Mexican, Puerto Rican, South American, Spanish, and U.S.-identified Hispanics) and Asian (Indian, Chinese, Filipino, U.S.-identified Asians) subgroups. The report also compares the 2020 CES sample of Asians and Hispanics to the 2019 5-year American Community Survey and notes where samples differ.
 
