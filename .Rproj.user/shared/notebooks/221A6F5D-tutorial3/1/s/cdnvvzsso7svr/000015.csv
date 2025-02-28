@@ -1,0 +1,4 @@
+"0","post_map <- left_join(post_aggregate, "
+"0","                      urbnmapr::states, by = ""state_fips"")"
+"0",""
+"0","post_map"

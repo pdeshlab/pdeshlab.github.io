@@ -1,0 +1,1013 @@
+---
+title: "Making maps with the CES"
+code-block-bg: true
+code-block-border-left: true
+---
+
+**Published:** November 29, 2021
+
+## What you’ll learn
+
+-   How to use parts of the `urbnmapr` package to make some maps
+
+-   Using `ggplot2` attributes to make your maps more readable
+
+-   When to not use maps (or at least think carefully before doing so)
+
+What won’t you learn? There is a lot that goes into maps: projection types (see Dan Kelley’s excellent [writeup](https://cran.r-project.org/web/packages/oce/vignettes/map_projections.html) on the subject), zip code fuzziness, and loading in shapefiles from the Census, just to name a few topics. Cartographers are beings of infinite knowledge and power, and I won’t be able to teach you all of their secrets (I don’t know most of them!). But don’t let that dissuade you! If you’re passionate about maps, this will be a good place for you to start. And if you just need to plot a state-level election outcome map for a class and are panicking, perhaps this tutorial will help you too.
+
+We’ll also be using the `dataverse` and `survey` packages in this tutorial. I will not explain them in detail here. I have discussed them (and provided additional resources) in my last post: [*Plotting trends over time with the CES*](https://pdeshlab.github.io/posts/CES-plots-over-time).
+
+Much of this tutorial uses code that is adapted from an [article](https://www.cgoodman.com/blog/archives/2018/06/16/maps-in-r-using-urbnmapr/) by Christopher Goodman and the Urban Institute’s very own [tutorial](https://urbaninstitute.github.io/r-at-urban/mapping.html#Introduction). When I do this adapting, I note it in-text, but I wanted to give credit up-top too. Thank you for these incredible resources!
+
+As always, we need to start our code by loading in packages. You’ll need the following to packages execute my code, which you can install with `install.packages("name")`. You’ll then load them in like so:
+
+```{r, message = FALSE, warning = FALSE}
+#### LOAD PACKAGES ####
+library(dataverse) # loading data
+library(urbnmapr)  # geographic information for mapping!
+library(ggplot2)   # pretty plots
+library(geofacet)  # tile plots
+library(scales)    # easy formatting
+library(dplyr)     # data manipulation
+library(survey)    # survey analysis
+library(tidyverse) # the holy grail: more data wrangling
+
+library(leaflet)   # optional: for interactive maps!
+library(here)
+```
+
+The only exception to this is the `urbnmapr` package, which you need to install from GitHub. This is easy to do! Make sure you have the `devtools` installed as well and run what is below. If you are using a Mac, you may run into some problems loading the `geofacet` package. If this happens, follow this guidance on [Stack Overflow](https://stackoverflow.com/questions/31717850/error-package-or-namespace-load-failed-for-ggplot2-and-for-data-table), but apply it to the packages that did not load correctly. You may need to remove package installations and re-install them. In general, make sure you have the `sf` package installed prior to attempting to re-install `geofacet`.
+
+```{r, eval = FALSE}
+require("devtools")
+devtools::install_github("UrbanInstitute/urbnmapr")
+```
+
+## Getting the data
+
+We’ll load in the 2020 CES data using the `dataverse` package.
+
+```{r, message = FALSE, warning = FALSE, results = FALSE}
+##### LOADING DATA ####
+ces2020_dataverse <- get_dataframe_by_name(
+  filename = "CES20_Common_OUTPUT_vv.dta",
+  dataset = "10.7910/DVN/E9N6PH",
+  original = TRUE,
+  .f = haven::read_dta,
+  server = "dataverse.harvard.edu"
+)
+```
+
+Now before proceeding, we’ll need to decide what questions we want to answer with maps. Picking these questions is important, and not something this tutorial can completely teach you. I’ll include a checklist that I like to use when I have an urge to make a map, but you’ll have to do some thinking on your own, too.
+
+I’m interested in something methodological. The CES—and other surveys like it— often have multiple waves. There are many reasons for doing this. Maybe you want to see how respondents’ opinions will change after an important event (an election? The release of Red (Taylor’s Version)?). Perhaps you want to interview the same respondents again and again (called a panel study). Whatever your reason, you now have one main obstacle: attrition. It’s hard to get people to take surveys. Now getting those same people to take *another* one? It’s a tall task! I want to calculate what percentage of respondents failed to take the CES’ post-election survey in 2020 by state. And I want to map it!
+
+Let’s start by selecting relevant questions. We’ll need some kind of case identifier, the variable of interest, and a geography variable of some kind (to use in mapping). I am most interested in state differences, so I am selecting the inputstate variable.
+
+I do some other data manipulation in the following code to make things run smoothly (made sure state FIPS codes are interpreted correctly, and recoded the tookpost variable). I’ll explain what I’m doing in more detail in the code chunk!
+
+```{r}
+# Let's select variables that we care about!
+ces2020_selected <- ces2020_dataverse %>%
+  select(
+    
+    # id for each respondent
+    caseid, 
+    
+    # did you take the post-election survey?
+    tookpost, 
+    
+    # state respondent is living in.
+    # In this code, I am both selecting
+    # the inputstate column and renaming
+    # it to state_fips rough, all in
+    # one line!
+    state_fips_rough = inputstate) %>%
+  mutate(
+    
+    # tookpost is originally coded so 2 = Yes
+    # and 1 = No. I am recoding it so Yes = 1
+    # and No = 0. Why? When I do calculations, 
+    # the average of tookpost will be a proportion
+    # between 0 and 1 that I can represent as a 
+    # percent (ex. "85% of respondents took the
+    # post-election survey").
+    tookpost_recoded = case_when(
+      tookpost == 1 ~ 0,
+      tookpost == 2 ~ 1,
+    ),
+    
+    # why am I changing state_fips_rough? Like
+    # most coding, things were breaking which inspired
+    # me to get creative. Try running this chunk without
+    # this line and look at ces2020_selected. See anything
+    # weird? Check before you read on!
+    state_fips = as.character(sprintf("%02d", state_fips_rough))
+    
+    # Okay, now that you've looked, I'll spill the beans. 
+    # State FIPS codes are always two digits, like 15, 50, 
+    # and 02. R was reading in single digits like 02 as
+    # just 2, which is a problem later on. To fix this
+    # I used the function sprintf to tell R to add
+    # leading zeroes to state_fips_rough until there
+    # were two digits per entry. So a value of 4 would
+    # turn into 04, but 36 would stay 36! I can't spend
+    # more time on this now, but if people are interested
+    # in this kind of data manipulation, I am happy to write
+    # about it!
+  )
+
+```
+
+Before we move forward, I want to see what sample sizes we’re working with. I can do this with the lovely `dplyr` and using piping.
+
+```{r}
+# hey R, for the following, use ces2020_selected please!
+ces2020_selected %>%
+  
+  # whatever calculation I tell you to do, please
+  # do it grouped--- that is, only within entries
+  # with the same state FIPS code.
+  group_by(state_fips) %>%
+  
+  # could you tell me how many entries I have per
+  # state?
+  summarise(n = n())
+```
+
+```{r}
+# you'll notice that the whole table does not print here.
+# To see the entire thing, print it in your R console
+```
+
+Interesting! It’s cool to see how the CES samples across the United States. Because I’m interested in just looking at the CES as is (and not using the CES to make a hypothesis about Americans writ large), I don’t need to do any other steps here. These numbers will be good to keep in mind as we calculate what percentage of respondents took the post-election survey by state. Actually, let’s go ahead and calculate that with `dplyr`!
+
+```{r}
+post_aggregate <- ces2020_selected %>%
+  group_by(state_fips) %>%
+  
+  # give me the mean of tookpost_recoded 
+  # for each state, and make that a new
+  # variable called mean_post
+  summarise(mean_post = mean(tookpost_recoded))
+
+# let's take a look!
+post_aggregate
+```
+
+Now it’s time to use the `urbnmapr` package developed by The Urban Institute. Mapping is actually quite complicated! Even though we now have a summary table that tells us what percentage of respondents took the post-election survey for each state, R still needs to be able to draw the map! How will it know what states are shaped like? How boundaries intersect? How will it make the map pretty?
+
+You try drawing a map of the U.S. from scratch without guidlines. It’s hard! `urbnmapr` helps by letting us pull from its database. Below, I use our state_fips column to pull geographic details from `urbnmapr`. I can do this because `urbnmapr` has a databse with a column named state_fips (almost like I named it the same on purpose!).
+
+```{r}
+post_map <- left_join(post_aggregate, 
+                      urbnmapr::states, by = "state_fips")
+
+post_map
+```
+
+When we print post_map, you’ll notice a lot of information that we didn’t have before. It looks like we have longitude and latitude, some other visual helpers for mapping, as well as helpful state abbreviations! We retain our other data (most importantly— our mean_post stat).
+
+Believe it or not, it’s now time to map. The code for creating maps can be daunting, and I’ll present a big chunk to you with annotations. You should feel free to try this code with lines removed to see how the map would appear differently!
+
+```{r, message = FALSE}
+# Plotting 
+# Code adapted from: 
+# https://www.cgoodman.com/blog/archives/2018/06/16/maps-in-r-using-urbnmapr/
+# I also retain some of Chris' annotations here for clarity.
+
+ggplot() +
+  
+  # county map
+  geom_polygon(data = post_map,
+               mapping = aes(x = long, y = lat,
+                             group = group,
+                             
+                             # I want the color 
+                             # that each state
+                             # has to depend
+                             # on mean_post!
+                             fill = mean_post)) +
+ 
+   # add state outlines using urbnmapr
+  geom_polygon(data = urbnmapr::states,
+               # when we write urbnmapr::states
+               # we are telling R to specifically
+               # use the urbnmapr package to pull up
+               # states. Some coders like using this notation
+               # consistently ---whenever they use a function
+               # they tell R which package it comes from.
+               # I don't do that, but if your code is
+               # breaking and you don't know why--- try
+               # calling on the package explicitly (sometimes)
+               # packages have functions that are named the
+               # same thing, which confuses R!
+               
+               mapping = aes(long, lat,group = group),
+               fill = NA, color = "#ffffff", size = 0.4) +
+  
+  # projection
+  coord_map(projection = "polyconic")+
+  
+  # I want to create a scale that goes from low to
+  # high, where the color of the high value connotes
+  # that things are good. In the United States,
+  # the color green is often the "good" or "everything's
+  # fine" color, so I'll use a version of that.
+  
+  # You can find an R Color Cheat Sheet here by Melanie Frazier: 
+  # https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf
+  scale_fill_gradient(low = "white", 
+                      high = "seagreen4", 
+                      
+                      # I can define limits explicitly if I want.
+                      # If you do this, always check that you are not
+                      # accidentally excluding data! (I made sure all my)
+                      # data fit in this range reasonably.
+                      limits = c(0.75, 0.95), 
+                      
+                      # Right now my code is in decimals.
+                      # We can use a trick we learned last tutorial
+                      # to make the labels into integer percentages.
+                      # Try changing the accuracy = 5L argument
+                      # to learn what it does!
+                      labels = percent_format(accuracy = 5L)) + 
+  # Theming
+  theme_minimal()+
+  theme(
+    legend.position = "right",
+    legend.text.align = 0,
+    legend.title = element_blank(),
+    plot.margin = unit(c(.5,.5,.2,.5), "cm")) +
+    theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+  ) +
+  
+  # some useful titles!
+  labs(x = "",
+       y = "",
+       title = "% of Respondents Who Took the Post Election Survey",
+       caption = "Author: Pia Deshpande, \n Data: 2020 Cooperative Election Study")
+
+```
+
+And ta da! A map! It seems like respondents don’t take the post election survey as frequenty in Mississippi, Arkansas, Oklahoma, Alaska, and Texas, among others. On the other hand, New Mexico and New Hampshire seem to be avid survey takers.
+
+There are some good things about the map, and some bad things.
+
+Let’s start with the bad. All maps take data that is detailed, and represents that data in a less detailed way to be intelligible. I’m not sure exactly what percentage of Texans took the post-election survey, and to find out, I would need to pull up that table we created earlier! The color scale I picked gives me some idea how states are doing compared to each other, but not how they are doing compared to some norm. What if I wanted to see which states were below the CES’ national average? This would not be the plot to use then! Another bad thing is endemic to this type of map — I’ve talked about Texas twice now. Why? Well, it’s big on the map, and my eye wants to pay attention to it. The north east is dwarfed completely, and it makes it hard to see trends there.
+
+Okay, but are there good things? Yes! Using state geography has its benefits. Your readers will likely be familiar with this type of map. They’ll know where to glance for their home state, and will (hopefully) be able to locate others. My color scale progresses from white to green, which gives the effect of states with a lower response rate being kinda transparent. That’s neat! Conceptually, it makes sense that Oklahoma is fading out compared to New Mexico, which took the post-election survey at a much higher rate.
+
+We shouldn’t just settle for this map as is! Though some problems can’t be solved with maps at all (not being able to see the data exactly) or with chloropleths (state geographies); some can be solved! Let’s make a map that will help me tell the world which states are doing above, below, and around average on taking the post-election survey. I’ll do this by changing the color scale.
+
+```{r}
+# Plotting (Code adapted from https://www.cgoodman.com/blog/archives/2018/06/16/maps-in-r-using-urbnmapr/)
+
+ggplot() +
+  # County map
+  geom_polygon(data = post_map,
+               mapping = aes(x = long, y = lat,
+                             group = group,
+                             fill = mean_post)) +
+  # Add state outlines
+  geom_polygon(data = urbnmapr::states,
+               mapping = aes(long, lat,group = group),
+               fill = NA, color = "#ffffff", size = 0.4) +
+  # Projection
+  coord_map(projection = "polyconic")+
+  
+# scale_fill_gradient 2 helps us create *diverging* color scales!
+# I define red as a low point, white as the middle, and green
+# as the high point. 
+scale_fill_gradient2(
+  low = "red",
+  mid = "white",
+  high = "seagreen4",
+  
+  # I define the midpoint explicitly here! 
+  # I calculate it not as the mean of all the 
+  # state averages, but as the mean of all CES
+  # respondents. That value will be where the
+  # scale is a stark white.
+  midpoint = mean(ces2020_selected$tookpost_recoded),
+  limits = c(0.75, 0.95), 
+  labels = percent_format(accuracy = 5L)
+)+
+  # Theming
+  theme_minimal()+
+  theme(
+    legend.position = "right",
+    legend.text.align = 0,
+    legend.title = element_blank(),
+    plot.margin = unit(c(.5,.5,.2,.5), "cm")) +
+    theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+  ) + 
+  labs(x = "",
+       y = "",
+       title = "% of Respondents Who Took the Post Election Survey",
+       caption = "Author: Pia Deshpande, \n Data: 2020 Cooperative Election Study")
+```
+
+Well this looks different! States that are around average fade into the background (goodbye Oregon!), while outliers are bleeding and verdant. Mississippi really stands out here, and so does New Hampshire!
+
+## What about substantive maps?
+
+Okay, but I need to write a paper by the end of the semester using survey questions to show my teacher how weighting works. How do I make a map for that?
+
+Have no fear! This section will help you. Let’s map what percentage of Americans were contacted by a political campaign in 2020 and how that differs by state.
+
+Making a substantive map means we need to be using all of our normal data analysis tools. That is, when we calculate summary statistics, we should use survey weights and the `survey` function. It also means being well aware of sample size. For this analysis, if a state has less than 200 observations, I exclude it from my analysis. Since that state will still be on the map, we’ll have to decide how we depict it.
+
+First, let’s select relevant variables from `ces2020_dataverse`, just like we did for the first set of maps!
+
+```{r}
+# Let's try making a substantive map: what percentage of respondents were contacted
+# by a political campaign in 2020?
+
+# Let's select variables that we care about!
+ces2020_substantive <- ces2020_dataverse %>%
+  select(
+    
+    # id for each respondent
+    caseid, 
+    
+    # weight for survey analysis!
+    commonpostweight, 
+    
+    # state respondent is registered in
+    state_fips_rough = inputstate_post, 
+    
+    # were you contacted by a political campaign in 2020?
+    CC20_431a) %>%
+  
+  mutate(
+    contact = case_when(
+      
+      # I am recoding this so a "Yes" is a 1
+      # and a "No" is a 0.
+      CC20_431a == 1 ~ 1,
+      CC20_431a == 2 ~ 0
+    ),
+    state_fips = as.character(sprintf("%02d", state_fips_rough))
+  ) %>%
+  
+  # We don't want to include someone if they did not take the post-election survey
+  drop_na(commonpostweight)
+```
+
+Just like last time, we should look at state samples. I’m not comfortable making an inference about a state if less than 200 people were polled there. Let’s find which states we should cull from our analysis.
+
+```{r}
+# Check sample sizes of each state
+sample_cutoff <- ces2020_substantive %>%
+  group_by(state_fips) %>%
+  summarise(n = n()) %>%
+  
+  # only give me states with less than 200 responses
+  filter(n < 200)
+
+sample_cutoff
+```
+
+This means we are going to have to exclude states with fips code 56, 02, 50, 38, 46, 11, 44, and 15. Looking at the CES guide this is Wyoming, Alaska, Vermont, North Dakota, South Dakota, the District of Columbia (which is not a state right now!), Rhode Island, and Hawaii, respectively. Sad to see them go, but it’s better than making unsound claims!
+
+Now to calculate some statistics. Since I went through the `survey` package in more detail in my previous tutorial, I won’t reiterate myself here.
+
+```{r}
+survey <- svydesign(ids = ~0, 
+                    data = ces2020_substantive, 
+                    weights = ~commonpostweight)
+
+contact_state <- as.data.frame(svyby(~contact, 
+                                     ~state_fips, 
+                                     survey, 
+                                     svymean, 
+                                     na.rm = TRUE)) %>%
+  
+  # I'm telling R to select all state_fips that were not in our
+  # table of states with less than <200 entries!
+  filter(!(state_fips %in% sample_cutoff$state_fips))
+
+# Join with urbnmapr
+contact_map <- left_join(contact_state, 
+                         states, by = "state_fips") %>%
+  
+  
+  # Spoiler! This step will let us make a tile map later on. We're specifying the dimensions of the 
+  # tile here. I want my tiles to be square, but you can change this as you see fit.
+  mutate(xdimension = 1, 
+         ydimension = 1) 
+```
+
+Now to plot! Let’s first try to map a standard U.S. state geography with a sequential scale (low to high, with no midpoint to facilitate diverging). There will be less comments this time around!
+
+```{r}
+ggplot() +
+  # County map
+  geom_polygon(data = contact_map,
+               mapping = aes(x = long, y = lat,
+                             group = group,
+                             
+                             # our variable of interest!
+                             fill = contact)) +
+  # Add state outlines
+  geom_polygon(data = urbnmapr::states,
+               mapping = aes(long, lat,group = group),
+               
+               # with the color argument, I am giving
+               # states a grey outline!
+               fill = NA, color = "grey30", size = 0.4) +
+  # Projection
+  coord_map(projection = "polyconic")+
+  
+  # purple seems like a bipartisan color?
+  scale_fill_gradient(low = "plum", 
+                      high = "mediumpurple4", 
+                      labels = percent_format(accuracy = 5L),
+                      limits = c(0.35, 0.75),
+                      
+                      # This blank "" means I do not want my 
+                      # legend to have a title.
+                      "") + 
+  
+  # Theming
+  theme_minimal()+
+  theme(
+    legend.position = "right",
+    legend.text.align = 0,
+    plot.margin = unit(c(.5,.5,.2,.5), "cm")) +
+  theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+  ) + 
+  theme(plot.title=element_text(family="Open Sans Condensed Bold", margin=margin(b=15)))+
+  theme(plot.subtitle=element_text(family="Open Sans Condensed Light Italic"))+
+  theme(plot.margin=unit(rep(0.5, 4), "cm"))+
+  labs(x = "",
+       y = "",
+       title = "% of Respondents Contacted by a Political Campaign in 2020",
+       caption = "Author: Pia Deshpande, Data: 2020 Cooperative Election Study")
+
+```
+
+There she is! The states that are missing are in stark white (notice how I did not have my scale start with white?). We see some states like Montana with a pretty high campaign contact rate, and soms states like Louisiana with a pretty low one. However, there’s a problem — we used the `survey` package to calculate these values, and they have standard errors. There’s not a good way to represent standard errors in our map as it currently exists!
+
+Why are we worried about standard errors here? I was suspiciously silent about them with our first map. It’s because our first map was depicting something about CES respondents, which means our sample was *the same* as our population of interest (an incredible and rare thing). But when we analyze substantive questions, we’re usually trying to use the survey as a proxy for how a certain population behaves (in this case, the American public), which means our estimates have uncertainty to them. People who make maps and use them in their analysis are aware of this difficulty, and there are ways to overcome it that I won’t go into in this tutorial— mostly because I am not equipped to teach you something I do not know! Penn State’s Department of Geography has a good [writeup](https://www.e-education.psu.edu/geog486/node/693) on the topic of mapping uncertainty.
+
+But for our tutorial, there is one problem I might try and solve — state geography. Shy of redrawing all the state lines, I think we should make a tile map. In a tile map, all states are represented by similar sized squares, so readers will weigh them equally as they visually process them.
+
+```{r}
+
+# The following code is adapted from the Urban Institute's Tutorial
+# https://urbaninstitute.github.io/r-at-urban/mapping.html#geom_tile()
+
+# create a custom geofacet grid
+# This was constructed by the Urban Institute! I am using it here.
+# It tells R how to draw the grid, and how to name each square.
+# I am grateful someone else wrote this and not me!
+
+urban_grid <- tibble(
+  row = c(1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
+          4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 
+          7, 7, 8, 8, 8),
+  col = c(1, 11, 6, 10, 11, 1, 2, 3, 4, 5, 6, 7, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5, 6, 7, 8, 1, 4, 9),
+  code = c("AK", "ME", "WI", "VT", "NH", "WA", "ID", "MT", "ND", "MN", "IL", "MI", "NY", "MA", "OR", "NV", "WY", "SD", "IA", "IN", "OH", "PA", "NJ", "CT", "RI", "CA", "UT", "CO", "NE", "MO", "KY", "WV", "VA", "MD", "DE", "AZ", "NM", "KS", "AR", "TN", "NC", "SC", "DC", "OK", "LA", "MS", "AL", "GA", "HI", "TX", "FL"),
+  name = c("Alaska", "Maine", "Wisconsin", "Vermont", "New Hampshire", "Washington", "Idaho", "Montana", "North Dakota", "Minnesota", "Illinois", "Michigan", "New York", "Massachusetts", "Oregon", "Nevada", "Wyoming", "South Dakota", "Iowa", "Indiana", "Ohio", "Pennsylvania", "New Jersey", "Connecticut", "Rhode Island", "California", "Utah", "Colorado", "Nebraska", "Missouri", "Kentucky", "West Virginia", "Virginia", "Maryland", "Delaware", "Arizona", "New Mexico", "Kansas", "Arkansas", "Tennessee", " North Carolina", "South Carolina", " District of Columbia", "Oklahoma", "Louisiana", "Mississippi", "Alabama", "Georgia", "Hawaii", "Texas", "Florida")
+)
+
+
+contact_map %>%
+  
+  # remember when I defined xdimension and ydimension a while ago?
+  # It's coming in handy here!
+  ggplot(aes(x = xdimension, y = ydimension, fill = contact)) +
+
+  # We're making a tile map!
+  geom_tile() +
+  
+  # I am defining some display text here. I want
+  # to print the value of "contact," which is the 
+  # estimated percentage of Americans in a certain
+  # state who were contacted by a political campaign!
+  
+  # However, this number is a decimal. Another way
+  # of formatting percentages is by multiplying them by 100
+  # and using the round function (I wanted no decimal places).
+  # I then use the paste0 function to add a pretty percentage sign!
+  geom_text(aes(label = paste0(round(contact*100,0), "%")),
+            
+            # this makes the text white!
+            color = "white") +
+
+  # Using our grid from before. Thanks again to the Urban Institute!
+  # I also want to facet by state_abbv (That is, make a new tile) for
+  # each state abbreviation.
+  facet_geo(facets = ~state_abbv, grid = urban_grid) +
+  labs(title = "Percentage of Americans Contacted by a Political Campaign in 2020",
+       subtitle = "Adapted from Code from the Urban Institute",
+       caption = "Graph by Pia Deshpande \n Data from the 2020 CES",
+       x = NULL,
+       y = NULL) +
+  scale_fill_gradient(
+    
+  # Purple all the way down!
+  low = "plum",
+  high = "mediumpurple4",
+  
+  # No legend title please
+  ""
+)+
+  theme(plot.background = element_rect(colour = "white"),
+        panel.grid = element_blank(),
+        panel.grid.major = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        axis.line = element_blank(),
+        panel.spacing = unit(0L, "pt"),
+        legend.position = "none",
+        strip.text.x = element_text(size = 9L))
+
+```
+
+![](data:image/png;base64,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) Okay! We have it! A graph-table-color thing! An abomination of nature that does fix some of our problems, but adds new ones. Readers are no longer going to see Texas as more important than Connecticut because of state size, and they can now look at the exact percentage. Data we excluded is also easy to spot! However, because this chart provides more information, it asks viewers to spend more time looking at it. This is a complicated figure—and you could argue that the color fill behind the text label doesn’t do much.
+
+All maps are trade offs. In fact, even using a map is a pretty important choice! How should you decide?
+
+## Okay, when should I use a map?
+
+-   I am genuinely interested in answering a *geographic* question, and a map would help.
+
+-   I have thought carefully about the geography I am using and whether it is appropriate. (For example, if you are interested in studying different levels of property tax, the state geography will be too broad for you. Most property taxes are decided at the local level).
+
+-   I have thought about the trade offs of using maps and selected the best type of map. Tile maps are great when you don’t want the size of states, countries, or territories to make readers weigh larger geographic regions more importantly than small ones. On the other hand, state geography is recognizable, and can help people interpret your results. You have to make some important choices!
+
+-   I have thought about mapping uncertainty and am either comfortable with not doing it (see our first slew of maps) or have determined how I will signal uncertainty to readers.
+
+That brings us to the end of our tutorial. As always, the whole script is below (slightly rearranged so it will hopefully run smoothly on your computer).
+
+## The whole script
+
+```{r, eval = FALSE}
+knitr::opts_chunk$set(echo=TRUE, warning=FALSE, message=FALSE)
+# Setting up my RmD file
+
+library(knitr)
+# A package for knitting things together!
+library(htmlwidgets)
+# A package to save leaflet HTML so we can render these maps in Jekyll. If you are just looking at your maps on your local PC, you won't need to do this.
+# A special thanks to Rob Williams for his tutorial on how to do this: https://jayrobwilliams.com/posts/2020/09/jekyll-html
+
+#### LOAD PACKAGES ####
+library(dataverse) # loading data
+library(urbnmapr)  # geographic information for mapping!
+library(ggplot2)   # pretty plots
+library(geofacet)  # tile plots
+library(scales)    # easy formatting
+library(dplyr)     # data manipulation
+library(survey)    # survey analysis
+library(tidyverse) # the holy grail: more data wrangling
+
+library(leaflet)   # optional: for interactive maps!
+library(here)
+
+require("devtools")
+devtools::install_github("UrbanInstitute/urbnmapr")
+##### LOADING DATA ####
+ces2020_dataverse <- get_dataframe_by_name(
+  filename = "CES20_Common_OUTPUT_vv.dta",
+  dataset = "10.7910/DVN/E9N6PH",
+  original = TRUE,
+  .f = haven::read_dta,
+  server = "dataverse.harvard.edu"
+)
+# Let's select variables that we care about!
+ces2020_selected <- ces2020_dataverse %>%
+  select(
+    
+    # id for each respondent
+    caseid, 
+    
+    # did you take the post-election survey?
+    tookpost, 
+    
+    # state respondent is living in.
+    # In this code, I am both selecting
+    # the inputstate column and renaming
+    # it to state_fips rough, all in
+    # one line!
+    state_fips_rough = inputstate) %>%
+  mutate(
+    
+    # tookpost is originally coded so 2 = Yes
+    # and 1 = No. I am recoding it so Yes = 1
+    # and No = 0. Why? When I do calculations, 
+    # the average of tookpost will be a proportion
+    # between 0 and 1 that I can represent as a 
+    # percent (ex. "85% of respondents took the
+    # post-election survey").
+    tookpost_recoded = case_when(
+      tookpost == 1 ~ 0,
+      tookpost == 2 ~ 1,
+    ),
+    
+    # why am I changing state_fips_rough? Like
+    # most coding, things were breaking which inspired
+    # me to get creative. Try running this chunk without
+    # this line and look at ces2020_selected. See anything
+    # weird? Check before you read on!
+    state_fips = as.character(sprintf("%02d", state_fips_rough))
+    
+    # Okay, now that you've looked, I'll spill the beans. 
+    # State FIPS codes are always two digits, like 15, 50, 
+    # and 02. R was reading in single digits like 02 as
+    # just 2, which is a problem later on. To fix this
+    # I used the function sprintf to tell R to add
+    # leading zeroes to state_fips_rough until there
+    # were two digits per entry. So a value of 4 would
+    # turn into 04, but 36 would stay 36! I can't spend
+    # more time on this now, but if people are interested
+    # in this kind of data manipulation, I am happy to write
+    # about it!
+  )
+
+# hey R, for the following, use ces2020_selected please!
+ces2020_selected %>%
+  
+  # whatever calculation I tell you to do, please
+  # do it grouped--- that is, only within entries
+  # with the same state FIPS code.
+  group_by(state_fips) %>%
+  
+  # could you tell me how many entries I have per
+  # state?
+  summarise(n = n())
+
+
+# you'll notice that the whole table does not print here.
+# To see the entire thing, print it in your R console
+post_aggregate <- ces2020_selected %>%
+  group_by(state_fips) %>%
+  
+  # give me the mean of tookpost_recoded 
+  # for each state, and make that a new
+  # variable called mean_post
+  summarise(mean_post = mean(tookpost_recoded))
+
+# let's take a look!
+post_aggregate
+post_map <- left_join(post_aggregate, 
+                      states, by = "state_fips")
+
+post_map
+# Plotting 
+# Code adapted from: 
+# https://www.cgoodman.com/blog/archives/2018/06/16/maps-in-r-using-urbnmapr/
+# I also retain some of Chris' annotations here for clarity.
+
+ggplot() +
+  
+  # county map
+  geom_polygon(data = post_map,
+               mapping = aes(x = long, y = lat,
+                             group = group,
+                             
+                             # I want the color 
+                             # that each state
+                             # has to depend
+                             # on mean_post!
+                             fill = mean_post)) +
+ 
+   # add state outlines using urbnmapr
+  geom_polygon(data = urbnmapr::states,
+               # when we write urbnmapr::states
+               # we are telling R to specifically
+               # use the urbnmapr package to pull up
+               # states. Some coders like using this notation
+               # consistently ---whenever they use a function
+               # they tell R which package it comes from.
+               # I don't do that, but if your code is
+               # breaking and you don't know why--- try
+               # calling on the package explicitly (sometimes)
+               # packages have functions that are named the
+               # same thing, which confuses R!
+               
+               mapping = aes(long, lat,group = group),
+               fill = NA, color = "#ffffff", size = 0.4) +
+  
+  # projection
+  coord_map(projection = "polyconic")+
+  
+  # I want to create a scale that goes from low to
+  # high, where the color of the high value connotes
+  # that things are good. In the United States,
+  # the color green is often the "good" or "everything's
+  # fine" color, so I'll use a version of that.
+  
+  # You can find an R Color Cheat Sheet here by Melanie Frazier: 
+  # https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf
+  scale_fill_gradient(low = "white", 
+                      high = "seagreen4", 
+                      
+                      # I can define limits explicitly if I want.
+                      # If you do this, always check that you are not
+                      # accidentally excluding data! (I made sure all my)
+                      # data fit in this range reasonably.
+                      limits = c(0.75, 0.95), 
+                      
+                      # Right now my code is in decimals.
+                      # We can use a trick we learned last tutorial
+                      # to make the labels into integer percentages.
+                      # Try changing the accuracy = 5L argument
+                      # to learn what it does!
+                      labels = percent_format(accuracy = 5L)) + 
+  # Theming
+  theme_minimal()+
+  theme(
+    legend.position = "right",
+    legend.text.align = 0,
+    legend.title = element_blank(),
+    plot.margin = unit(c(.5,.5,.2,.5), "cm")) +
+    theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+  ) +
+  
+  # some useful titles!
+  labs(x = "",
+       y = "",
+       title = "% of Respondents Who Took the Post Election Survey",
+       caption = "Author: Pia Deshpande, \n Data: 2020 Cooperative Election Study")
+
+# Plotting (Code adapted from https://www.cgoodman.com/blog/archives/2018/06/16/maps-in-r-using-urbnmapr/)
+
+ggplot() +
+  # County map
+  geom_polygon(data = post_map,
+               mapping = aes(x = long, y = lat,
+                             group = group,
+                             fill = mean_post)) +
+  # Add state outlines
+  geom_polygon(data = urbnmapr::states,
+               mapping = aes(long, lat,group = group),
+               fill = NA, color = "#ffffff", size = 0.4) +
+  # Projection
+  coord_map(projection = "polyconic")+
+  
+# scale_fill_gradient 2 helps us create *diverging* color scales!
+# I define red as a low point, white as the middle, and green
+# as the high point. 
+scale_fill_gradient2(
+  low = "red",
+  mid = "white",
+  high = "seagreen4",
+  
+  # I define the midpoint explicitly here! 
+  # I calculate it not as the mean of all the 
+  # state averages, but as the mean of all CES
+  # respondents. That value will be where the
+  # scale is a stark white.
+  midpoint = mean(ces2020_selected$tookpost_recoded),
+  limits = c(0.75, 0.95), 
+  labels = percent_format(accuracy = 5L)
+)+
+  # Theming
+  theme_minimal()+
+  theme(
+    legend.position = "right",
+    legend.text.align = 0,
+    legend.title = element_blank(),
+    plot.margin = unit(c(.5,.5,.2,.5), "cm")) +
+    theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+  ) + 
+  labs(x = "",
+       y = "",
+       title = "% of Respondents Who Took the Post Election Survey",
+       caption = "Author: Pia Deshpande, \n Data: 2020 Cooperative Election Study")
+
+# Let's try making a substantive map: what percentage of respondents were contacted
+# by a political campaign in 2020?
+
+# Let's select variables that we care about!
+ces2020_substantive <- ces2020_dataverse %>%
+  select(
+    
+    # id for each respondent
+    caseid, 
+    
+    # weight for survey analysis!
+    commonpostweight, 
+    
+    # state respondent is registered in
+    state_fips_rough = inputstate_post, 
+    
+    # were you contacted by a political campaign in 2020?
+    CC20_431a) %>%
+  
+  mutate(
+    contact = case_when(
+      
+      # I am recoding this so a "Yes" is a 1
+      # and a "No" is a 0.
+      CC20_431a == 1 ~ 1,
+      CC20_431a == 2 ~ 0
+    ),
+    state_fips = as.character(sprintf("%02d", state_fips_rough))
+  ) %>%
+  
+  # We don't want to include someone if they did not take the post-election survey
+  drop_na(commonpostweight)
+
+
+# Check sample sizes of each state
+sample_cutoff <- ces2020_substantive %>%
+  group_by(state_fips) %>%
+  summarise(n = n()) %>%
+  
+  # only give me states with less than 200 responses
+  filter(n < 200)
+
+sample_cutoff
+
+survey <- svydesign(ids = ~0, 
+                    data = ces2020_substantive, 
+                    weights = ~commonpostweight)
+
+contact_state <- as.data.frame(svyby(~contact, 
+                                     ~state_fips, 
+                                     survey, 
+                                     svymean, 
+                                     na.rm = TRUE)) %>%
+  
+  # I'm telling R to select all state_fips that were not in our
+  # table of states with less than <200 entries!
+  filter(!(state_fips %in% sample_cutoff$state_fips))
+
+# Join with urbnmapr
+contact_map <- left_join(contact_state, 
+                         states, by = "state_fips") %>%
+  
+  
+  # Spoiler! This step will let us make a tile map later on. We're specifying the dimensions of the 
+  # tile here. I want my tiles to be square, but you can change this as you see fit.
+  mutate(xdimension = 1, 
+         ydimension = 1) 
+ggplot() +
+  # County map
+  geom_polygon(data = contact_map,
+               mapping = aes(x = long, y = lat,
+                             group = group,
+                             
+                             # our variable of interest!
+                             fill = contact)) +
+  # Add state outlines
+  geom_polygon(data = urbnmapr::states,
+               mapping = aes(long, lat,group = group),
+               
+               # with the color argument, I am giving
+               # states a grey outline!
+               fill = NA, color = "grey30", size = 0.4) +
+  # Projection
+  coord_map(projection = "polyconic")+
+  
+  # purple seems like a bipartisan color?
+  scale_fill_gradient(low = "plum", 
+                      high = "mediumpurple4", 
+                      labels = percent_format(accuracy = 5L),
+                      limits = c(0.35, 0.75),
+                      
+                      # This blank "" means I do not want my 
+                      # legend to have a title.
+                      "") + 
+  
+  # Theming
+  theme_minimal()+
+  theme(
+    legend.position = "right",
+    legend.text.align = 0,
+    plot.margin = unit(c(.5,.5,.2,.5), "cm")) +
+  theme(
+    axis.line = element_blank(),
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    axis.title.x = element_blank(),
+    axis.title.y = element_blank(),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+  ) + 
+  theme(plot.title=element_text(family="Open Sans Condensed Bold", margin=margin(b=15)))+
+  theme(plot.subtitle=element_text(family="Open Sans Condensed Light Italic"))+
+  theme(plot.margin=unit(rep(0.5, 4), "cm"))+
+  labs(x = "",
+       y = "",
+       title = "% of Respondents Contacted by a Political Campaign in 2020",
+       caption = "Author: Pia Deshpande, Data: 2020 Cooperative Election Study")
+# The following code is adapted from the Urban Institute's Tutorial
+# https://urbaninstitute.github.io/r-at-urban/mapping.html#geom_tile()
+
+# create a custom geofacet grid
+# This was constructed by the Urban Institute! I am using it here.
+# It tells R how to draw the grid, and how to name each square.
+# I am grateful someone else wrote this and not me!
+
+urban_grid <- tibble(
+  row = c(1, 1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 
+          4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 
+          7, 7, 8, 8, 8),
+  col = c(1, 11, 6, 10, 11, 1, 2, 3, 4, 5, 6, 7, 9, 10, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 2, 3, 4, 5, 6, 7, 8, 9, 4, 5, 6, 7, 8, 1, 4, 9),
+  code = c("AK", "ME", "WI", "VT", "NH", "WA", "ID", "MT", "ND", "MN", "IL", "MI", "NY", "MA", "OR", "NV", "WY", "SD", "IA", "IN", "OH", "PA", "NJ", "CT", "RI", "CA", "UT", "CO", "NE", "MO", "KY", "WV", "VA", "MD", "DE", "AZ", "NM", "KS", "AR", "TN", "NC", "SC", "DC", "OK", "LA", "MS", "AL", "GA", "HI", "TX", "FL"),
+  name = c("Alaska", "Maine", "Wisconsin", "Vermont", "New Hampshire", "Washington", "Idaho", "Montana", "North Dakota", "Minnesota", "Illinois", "Michigan", "New York", "Massachusetts", "Oregon", "Nevada", "Wyoming", "South Dakota", "Iowa", "Indiana", "Ohio", "Pennsylvania", "New Jersey", "Connecticut", "Rhode Island", "California", "Utah", "Colorado", "Nebraska", "Missouri", "Kentucky", "West Virginia", "Virginia", "Maryland", "Delaware", "Arizona", "New Mexico", "Kansas", "Arkansas", "Tennessee", " North Carolina", "South Carolina", " District of Columbia", "Oklahoma", "Louisiana", "Mississippi", "Alabama", "Georgia", "Hawaii", "Texas", "Florida")
+)
+
+
+contact_map %>%
+  
+  # remember when I defined xdimension and ydimension a while ago?
+  # It's coming in handy here!
+  ggplot(aes(x = xdimension, y = ydimension, fill = contact)) +
+
+  # We're making a tile map!
+  geom_tile() +
+  
+  # I am defining some display text here. I want
+  # to print the value of "contact," which is the 
+  # estimated percentage of Americans in a certain
+  # state who were contacted by a political campaign!
+  
+  # However, this number is a decimal. Another way
+  # of formatting percentages is by multiplying them by 100
+  # and using the round function (I wanted no decimal places).
+  # I then use the paste0 function to add a pretty percentage sign!
+  geom_text(aes(label = paste0(round(contact*100,0), "%")),
+            
+            # this makes the text white!
+            color = "white") +
+
+  # Using our grid from before. Thanks again to the Urban Institute!
+  # I also want to facet by state_abbv (That is, make a new tile) for
+  # each state abbreviation.
+  facet_geo(facets = ~state_abbv, grid = urban_grid) +
+  labs(title = "Percentage of Americans Contacted by a Political Campaign in 2020",
+       subtitle = "Adapted from Code from the Urban Institute",
+       caption = "Graph by Pia Deshpande \n Data from the 2020 CES",
+       x = NULL,
+       y = NULL) +
+  scale_fill_gradient(
+    
+  # Purple all the way down!
+  low = "plum",
+  high = "mediumpurple4",
+  
+  # No legend title please
+  ""
+)+
+  theme(plot.background = element_rect(colour = "white"),
+        panel.grid = element_blank(),
+        panel.grid.major = element_blank(),
+        axis.text = element_blank(),
+        axis.ticks = element_blank(),
+        axis.line = element_blank(),
+        panel.spacing = unit(0L, "pt"),
+        legend.position = "none",
+        strip.text.x = element_text(size = 9L))
+```
+
+```         
+```

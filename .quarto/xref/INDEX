@@ -1,0 +1,32 @@
+{
+  "index.qmd": {
+    "index.html": "6f1f2bf0"
+  },
+  "about.qmd": {
+    "about.html": "f040cde9"
+  },
+  "teaching.qmd": {
+    "teaching.html": "85156059"
+  },
+  "research.qmd": {
+    "research.html": "8c7c61ec"
+  },
+  "data.qmd": {
+    "data.html": "4471e67b"
+  },
+  "CV.qmd": {
+    "CV.html": "753244b6"
+  },
+  "tutorial1.qmd": {
+    "tutorial1.html": "b0abeb1d"
+  },
+  "tutorial2.qmd": {
+    "tutorial2.html": "bce701fc"
+  },
+  "tutorial3.qmd": {
+    "tutorial3.html": "dcf51e61"
+  },
+  "otherpublications.qmd": {
+    "otherpublications.html": "ca11ca69"
+  }
+}
