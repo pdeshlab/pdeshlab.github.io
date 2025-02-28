@@ -42,6 +42,7 @@ To cite this paper using BibTeX, use the following:
   publisher={Springer}
 }
 ```
+</div>
 
 </details>
 
