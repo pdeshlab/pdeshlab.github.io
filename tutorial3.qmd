@@ -418,7 +418,7 @@ contact_map <- left_join(contact_state,
 
 Now to plot! Let’s first try to map a standard U.S. state geography with a sequential scale (low to high, with no midpoint to facilitate diverging). There will be less comments this time around!
 
-```{r}
+```{r, warning = FALSE, message = FALSE}
 ggplot() +
   # County map
   geom_polygon(data = contact_map,
