@@ -9,6 +9,9 @@ about:
     - icon: twitter
       text: twitter
       href: https://x.com/deshpandepia
+    - icon: cloud-sun-fill
+      text: bluesky
+      href: https://bsky.app/profile/deshpandepia.bsky.social
     - icon: envelope-at-fill
       text: email
       href: mailto:pia_deshpande@berkeley.edu

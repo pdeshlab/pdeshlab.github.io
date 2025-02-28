@@ -17,6 +17,8 @@ website:
     tools:
       - icon: twitter
         href: https://x.com/deshpandepia
+      - icon: cloud-sun-fill
+        text: bluesky
       - icon: envelope-at-fill
         href: mailto:pia_deshpande@berkeley.edu
       - icon: github
