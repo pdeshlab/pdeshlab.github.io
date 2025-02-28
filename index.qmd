@@ -23,6 +23,6 @@ Prior to starting at Berkeley, I was a pre-doctoral researcher at the Cooperativ
 
 Though I am not a journalist anymore, I continue to write for non-academic venues as a researcher. Currently, I have work in *Monkey Cage* and *Lawfare.*
 
-When I was at the CES, I wrote tutorials for my students on how to use R. I wrote these tutorials before I even began graduate school, so I take only tenuous responsibility for the prose they contain. You can find them under `tutorials` .
+During my time with the CES, I wrote tutorials for my students on how to use R. I wrote these tutorials before I even began graduate school, so I take only tenuous responsibility for the prose they contain. You can find them under `tutorials` .
 
 You can contact me at `pia_deshpande[at]berkeley[dot]edu`.
