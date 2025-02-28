@@ -1,8 +1,0 @@
-"0","add <- function(number1, number2)"
-"0","  {number1 + number2}"
-"0",""
-"0","add(multiply(1,2), 4)"
-"1","[1]"
-"1"," 6"
-"1","
-"

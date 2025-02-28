@@ -1,6 +1,0 @@
-"0","# I use invisible to suppress lapply"
-"0","# printing the output you see "
-"0","# and additional output, but sometimes you "
-"0","# want all that information!"
-"0","# Try running this code without invisible(), and see"
-"0","# what output you get!"
