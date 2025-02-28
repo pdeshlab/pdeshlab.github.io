@@ -2,7 +2,7 @@
 title: "data"
 ---
 
-This page does not include replication data for specific papers. For these data, please go to `Research`. If you click on a paper of interest, you'll find a button that will direct you to the replication data.
+This page does not include replication data for specific papers. For these data, please go to `research`. If you click on a paper of interest, you'll find a button that will direct you to the replication data.
 
 <details>
 
