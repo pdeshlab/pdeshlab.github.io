@@ -12,11 +12,7 @@ This page does not include replication data for specific papers. For these data,
 
 <!-- Replication Code Button -->
 
-<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/RLO7G9&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">
-
-see data
-
-</button>
+<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/RLO7G9&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">see data</button>
 
 <!-- BibTeX Citation with Background Color and Extra Space -->
 
@@ -52,11 +48,7 @@ url = {https://doi.org/10.7910/DVN/RLO7G9}
 
 <!-- Replication Code Button -->
 
-<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/JUX8KA&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">
-
-see data
-
-</button>
+<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/JUX8KA&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">see data</button>
 
 <!-- BibTeX Citation with Background Color and Extra Space -->
 
@@ -92,11 +84,7 @@ url = {https://doi.org/10.7910/DVN/JUX8KA}
 
 <!-- Replication Code Button -->
 
-<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6NV9G3&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">
-
-see data
-
-</button>
+<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/6NV9G3&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">see data</button>
 
 <!-- BibTeX Citation with Background Color and Extra Space -->
 
@@ -133,11 +121,7 @@ url = {https://doi.org/10.7910/DVN/6NV9G3}
 
 <!-- Replication Code Button -->
 
-<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IA9SND&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">
-
-see data
-
-</button>
+<button onclick="window.open(&#39;https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/IA9SND&#39;, &#39;_blank&#39;);" style="font-size: 1em; padding: 6px 12px; background-color: white; color: purple; border: 2px solid purple; border-radius: 4px; display: inline-block; margin-top: 20px; margin-left: 10px; text-align: center; transition: background-color 0.3s, color 0.3s;" onmouseover="this.style.backgroundColor=&#39;purple&#39;; this.style.color=&#39;white&#39;;" onmouseout="this.style.backgroundColor=&#39;white&#39;; this.style.color=&#39;purple&#39;;">see data</button>
 
 <!-- BibTeX Citation with Background Color and Extra Space -->
 
