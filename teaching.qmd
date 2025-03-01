@@ -22,7 +22,7 @@ callout-icon: false
 
 > | **`Instructor: Paul Pierson`**
 >
-> Held two weekly sections for a total of three hours of instruction time with an additional two hours of office hours. Graded important assignments and taught students fundamental concepts in American politics. Topics included collective action problems, legislative entrenchment, the history of slavery in the United States, and information asymmetry among voters.
+> Held two weekly sections for a total of three hours of instruction time with an additional two hours of office hours. Graded assignments like essays and exams and taught students fundamental concepts in American politics. Topics included collective action problems, legislative entrenchment, the history of slavery in the United States, and information asymmetry among voters.
 
 <!-- Button to section syllabus to the right -->
 
