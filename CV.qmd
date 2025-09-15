@@ -4,10 +4,4 @@ title: "cv"
 
 If you are having a hard time viewing my CV, you can download it <a href="Pia_Deshpande_CV_feb2025.pdf" target="_blank">here</a>
 
-![](Pia_Deshpande_CV_september15_2025.pdf){width="800px" height="1120px"}
-
-
-
-
-
-
+![](Pia_Deshpande_CV_september15_2025.pdf){width="800px" height="1120px
